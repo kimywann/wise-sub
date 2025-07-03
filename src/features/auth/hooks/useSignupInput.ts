@@ -11,23 +11,32 @@ export default function useEmailInput() {
   const nicknameRef = useRef<HTMLInputElement>(null);
 
   const [birthYear, setBirthYear] = useState("");
-  const birthYearRef = useRef<HTMLScriptElement>(null);
+  const birthYearRef = useRef<HTMLSelectElement>(null);
 
-  const onChangeId = useCallback((e) => {
+  const onChangeId = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setId(e.target.value);
   }, []);
 
-  const onChangeDomain = useCallback((e) => {
-    setDomain(e.target.value);
-  }, []);
+  const onChangeDomain = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setDomain(e.target.value);
+    },
+    []
+  );
 
-  const onChangeNickname = useCallback((e) => {
-    setNickname(e.target.value);
-  }, []);
+  const onChangeNickname = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setNickname(e.target.value);
+    },
+    []
+  );
 
-  const onChangeBirthYear = useCallback((e) => {
-    setBirthYear(e.target.value);
-  }, []);
+  const onChangeBirthYear = useCallback(
+    (e: React.ChangeEvent<HTMLSelectElement>) => {
+      setBirthYear(e.target.value);
+    },
+    []
+  );
   return {
     id,
     domain,

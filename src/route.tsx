@@ -1,8 +1,11 @@
 import { createBrowserRouter } from "react-router";
-import HomePage from "./features/home/home-page";
+
 import Layout from "./layout";
-import SignInPage from "./common/components/Sign/Sign-in-page";
-import SignUpPage from "./common/components/Sign/Sign-up-page";
+
+import HomePage from "./features/home/home-page";
+import MySubscriptionsPage from "./features/subscriptions/my-subscriptions-page";
+import SignInPage from "./features/auth/sign-in-page";
+import SignUpPage from "./features/auth/sign-up-page";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +29,14 @@ const router = createBrowserRouter([
     element: (
       <Layout>
         <SignUpPage />
+      </Layout>
+    ),
+  },
+  {
+    path: "/subscription",
+    element: (
+      <Layout>
+        <MySubscriptionsPage />
       </Layout>
     ),
   },

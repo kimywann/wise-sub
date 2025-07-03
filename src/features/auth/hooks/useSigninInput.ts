@@ -4,9 +4,12 @@ export default function useEmailInput() {
   const [email, setEmail] = useState("");
   const emailRef = useRef<HTMLInputElement>(null);
 
-  const onChangeEmail = useCallback((e) => {
-    setEmail(e.target.value);
-  }, []);
+  const onChangeEmail = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setEmail(e.target.value);
+    },
+    []
+  );
 
   return {
     email,

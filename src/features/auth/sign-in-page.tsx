@@ -29,7 +29,7 @@ function SignInPage() {
 
   return (
     <div className="max-w-screen-lg mx-auto px-4">
-      <div className="flex justify-center mt-72">
+      <div className="flex justify-center mt-48">
         <div className="w-full max-w-lg p-8 bg-white">
           <h2 className="text-2xl font-bold text-center mb-6">로그인</h2>
           <form
