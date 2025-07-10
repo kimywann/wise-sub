@@ -3,12 +3,12 @@ import ServiceCard from "./service-card";
 
 export default function ServiceBox() {
   return (
-    <>
+    <div className="mt-5">
       {Object.entries(SERVICES_LIST).map(([category, services]) => (
         <div key={category}>
           <p className="mb-2 text-lg font-semibold">{category}</p>
 
-          <div className="mb-8 flex gap-6">
+          <div className="mb-5 flex gap-6">
             {services.map((service) => (
               <div
                 key={service.name}
@@ -20,6 +20,6 @@ export default function ServiceBox() {
           </div>
         </div>
       ))}
-    </>
+    </div>
   );
 }

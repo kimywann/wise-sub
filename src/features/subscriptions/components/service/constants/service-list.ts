@@ -1,14 +1,14 @@
-import Netflix from "../../../assets/logo/ott/Netflix.png";
-import Watcha from "../../../assets/logo/ott/Watcha.png";
+import Netflix from "@/assets/logo/ott/Netflix.png";
+import Watcha from "@/assets/logo/ott/Watcha.png";
 
-import Melon from "../../../assets/logo/music/Melon.png";
-import YouTubeMusic from "../../../assets/logo/music/YoutubeMusic.png";
+import Melon from "@/assets/logo/music/Melon.png";
+import YouTubeMusic from "@/assets/logo/music/YoutubeMusic.png";
 
-import ChatGPT from "../../../assets/logo/ai/ChatGPT.png";
-import Cursor from "../../../assets/logo/ai/Cursor.jpeg";
+import ChatGPT from "@/assets/logo/ai/ChatGPT.png";
+import Cursor from "@/assets/logo/ai/Cursor.jpeg";
 
-import BaeminClub from "../../../assets/logo/etc/BaeminClub.png";
-import RocketWow from "../../../assets/logo/etc/RocketWow.png";
+import BaeminClub from "@/assets/logo/etc/BaeminClub.png";
+import RocketWow from "@/assets/logo/etc/RocketWow.png";
 
 export type ServiceCategory = "OTT" | "MUSIC" | "AI" | "ETC";
 
