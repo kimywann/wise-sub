@@ -28,10 +28,10 @@ function SignInPage() {
   };
 
   return (
-    <div className="max-w-screen-lg mx-auto px-4">
-      <div className="flex justify-center mt-48">
-        <div className="w-full max-w-lg p-8 bg-white">
-          <h2 className="text-2xl font-bold text-center mb-6">로그인</h2>
+    <div className="mx-auto max-w-screen-lg px-4">
+      <div className="mt-20 flex justify-center">
+        <div className="w-full max-w-lg bg-white p-8">
+          <h2 className="mb-6 text-center text-2xl font-bold">로그인</h2>
           <form
             onSubmit={(e) => {
               e.preventDefault(); // 폼 전송 방지
@@ -46,7 +46,7 @@ function SignInPage() {
               type="text"
               value={email}
               onChange={onChangeEmail}
-              className="border border-gray-300 rounded-md px-4 py-2"
+              className="rounded-md border border-gray-300 px-4 py-2"
             />
             {errors.emailError && (
               <span className="text-sm text-red-500">{errors.emailError}</span>
@@ -58,7 +58,7 @@ function SignInPage() {
               autoComplete="current-password"
               value={password}
               onChange={onChangePassword}
-              className="border border-gray-300 rounded-md px-4 py-2"
+              className="rounded-md border border-gray-300 px-4 py-2"
             />
             {errors.passwordError && (
               <span className="text-sm text-red-500">
@@ -68,7 +68,7 @@ function SignInPage() {
 
             <button
               type="submit"
-              className="bg-indigo-500 text-white py-2 mt-2 rounded-md hover:bg-indigo-600 hover:cursor-pointer"
+              className="mt-2 rounded-md bg-indigo-500 py-2 text-white hover:cursor-pointer hover:bg-indigo-600"
             >
               로그인
             </button>

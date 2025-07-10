@@ -63,10 +63,10 @@ function SignInPage() {
   console.log("로그인 정보:", email, password, nickname, birthYear);
 
   return (
-    <div className="max-w-screen-lg mx-auto px-4">
-      <div className="flex justify-center mt-48">
-        <div className="w-full max-w-lg p-8 bg-white">
-          <h2 className="text-2xl font-bold text-center mb-6">회원가입</h2>
+    <div className="mx-auto max-w-screen-lg px-4">
+      <div className="mt-20 flex justify-center">
+        <div className="w-full max-w-lg bg-white p-8">
+          <h2 className="mb-6 text-center text-2xl font-bold">회원가입</h2>
           <form
             onSubmit={(e) => {
               e.preventDefault(); // 폼 전송 방지
@@ -82,7 +82,7 @@ function SignInPage() {
                 value={id}
                 onChange={onChangeId}
                 placeholder="example"
-                className="w-4/5 border border-gray-300 rounded-md px-4 py-2"
+                className="w-4/5 rounded-md border border-gray-300 px-4 py-2"
               />
               <span>@</span>
               <input
@@ -91,7 +91,7 @@ function SignInPage() {
                 value={domain}
                 onChange={onChangeDomain}
                 placeholder="domain.com"
-                className="border border-gray-300 rounded-md px-4 py-2"
+                className="rounded-md border border-gray-300 px-4 py-2"
               />
             </div>
             {errors.idError && (
@@ -107,7 +107,7 @@ function SignInPage() {
               autoComplete="current-password"
               value={password}
               onChange={onChangePassword}
-              className="border border-gray-300 rounded-md px-4 py-2"
+              className="rounded-md border border-gray-300 px-4 py-2"
             />
             {errors.passwordError && (
               <span className="text-sm text-red-500">
@@ -118,7 +118,7 @@ function SignInPage() {
             <input
               type="text"
               onChange={onChangeNickname}
-              className="w-50 border border-gray-300 rounded-md px-4 py-2"
+              className="w-50 rounded-md border border-gray-300 px-4 py-2"
             />
             {errors.nicknameError && (
               <span className="text-sm text-red-500">
@@ -129,7 +129,7 @@ function SignInPage() {
             <select
               value={birthYear}
               onChange={onChangeBirthYear}
-              className="w-1/4 border border-gray-300 rounded-md px-4 py-2"
+              className="w-1/4 rounded-md border border-gray-300 px-4 py-2"
             >
               <option value=""></option>
               {years.map((year) => (
@@ -146,7 +146,7 @@ function SignInPage() {
 
             <button
               type="submit"
-              className="bg-indigo-500 text-white py-2 mt-2 rounded-md hover:bg-indigo-600 hover:cursor-pointer"
+              className="mt-2 rounded-md bg-indigo-500 py-2 text-white hover:cursor-pointer hover:bg-indigo-600"
             >
               계정 생성
             </button>

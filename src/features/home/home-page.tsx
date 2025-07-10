@@ -1,16 +1,16 @@
-import Button from "../../common/components/Button/Button.tsx";
+import Button from "@/common/components/button/button";
 import { Link } from "react-router-dom";
 
 function HomePage() {
   return (
     <>
-      <section className="bg-[linear-gradient(180deg,transparent_50%,rgba(0,100,255,.1))] h-screen w-full">
-        <div className="flex flex-col items-center justify-center h-full">
+      <section className="h-screen w-full bg-[linear-gradient(180deg,transparent_50%,rgba(0,100,255,.1))]">
+        <div className="flex h-full flex-col items-center justify-center">
           <p className="flex text-2xl font-bold whitespace-nowrap md:text-4xl">
             이렇게 많은 구독 서비스를 쓰고 있었다고?
           </p>
           <div>
-            <p className="flex pt-4 text-center text-md md:text-2xl font-medium whitespace-nowrap text-gray-400">
+            <p className="text-md flex pt-4 text-center font-medium whitespace-nowrap text-gray-400 md:text-2xl">
               결제일은 까먹고, 지출은 점점 늘어나고... <br /> 이제 구독 내역을
               한눈에 관리해보세요.
             </p>
