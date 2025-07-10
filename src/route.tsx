@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router";
 
-import Layout from "./common/components/Layout/Layout";
+import Layout from "./common/components/layout/layout";
 
 import HomePage from "./features/home/home-page";
 import MySubscriptionsPage from "./features/subscriptions/my-subscriptions-page";

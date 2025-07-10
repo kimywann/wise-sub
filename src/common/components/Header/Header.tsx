@@ -1,11 +1,11 @@
-import Button from "../Button/Button";
+import Button from "@/common/components/button/button";
 import { Link } from "react-router-dom";
 
 function Header() {
   return (
-    <div className="flex justify-between mt-4">
+    <div className="mt-4 flex justify-between">
       <Link to="/">
-        <div className="text-indigo-600 font-bold">WiseSub</div>
+        <div className="font-bold text-indigo-600">WiseSub</div>
       </Link>
       <div className="flex gap-1.5">
         <Link to="/signin">

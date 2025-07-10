@@ -1,4 +1,4 @@
-import Header from "../Header/Header";
+import Header from "@/common/components/header/header";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -6,7 +6,7 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <div className="max-w-screen-lg mx-auto px-4">
+    <div className="mx-auto max-w-screen-lg px-4">
       <Header />
       {children}
     </div>
