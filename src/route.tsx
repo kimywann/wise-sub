@@ -3,9 +3,12 @@ import { createBrowserRouter } from "react-router";
 import Layout from "./common/components/layout/layout";
 
 import HomePage from "./features/home/home-page";
-import MySubscriptionsPage from "./features/subscriptions/my-subscriptions-page";
+
 import SignInPage from "./features/auth/sign-in-page";
 import SignUpPage from "./features/auth/sign-up-page";
+
+import MySubscriptionsPage from "./features/subscriptions/my-subscriptions-page";
+import AddSubscriptionPage from "./features/subscriptions/components/add-subscription-page";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +40,14 @@ const router = createBrowserRouter([
     element: (
       <Layout>
         <MySubscriptionsPage />
+      </Layout>
+    ),
+  },
+  {
+    path: "/subscription/add",
+    element: (
+      <Layout>
+        <AddSubscriptionPage />
       </Layout>
     ),
   },
