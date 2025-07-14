@@ -1,10 +1,10 @@
 import { type ServiceItem } from "../constants/service-list";
 
-interface Props {
+interface ServiceCardProps {
   service: ServiceItem;
 }
 
-export default function ServiceCard({ service }: Props) {
+export default function ServiceCard({ service }: ServiceCardProps) {
   return (
     <div className="flex flex-col items-center text-center">
       <img
