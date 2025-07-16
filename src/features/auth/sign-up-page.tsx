@@ -3,7 +3,7 @@ import { useState } from "react";
 import useSignupInput from "./hooks/useSignupInput";
 import usePasswordInput from "./hooks/usePasswordInput";
 
-function SignInPage() {
+function SignUpPage() {
   const {
     id,
     domain,
@@ -116,6 +116,7 @@ function SignInPage() {
             )}
             <span>닉네임</span>
             <input
+              ref={nicknameRef}
               type="text"
               onChange={onChangeNickname}
               className="w-50 rounded-md border border-gray-300 px-4 py-2"
@@ -127,6 +128,7 @@ function SignInPage() {
             )}
             <span>출생년도</span>
             <select
+              ref={birthYearRef}
               value={birthYear}
               onChange={onChangeBirthYear}
               className="w-1/4 rounded-md border border-gray-300 px-4 py-2"
@@ -157,4 +159,4 @@ function SignInPage() {
   );
 }
 
-export default SignInPage;
+export default SignUpPage;
