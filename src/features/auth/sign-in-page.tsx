@@ -3,6 +3,9 @@ import { useState } from "react";
 import useSigninInput from "./hooks/useSigninInput";
 import usePasswordInput from "./hooks/usePasswordInput";
 
+import { useNavigate } from "react-router-dom";
+import { signin } from "./api/sign-in";
+
 function SignInPage() {
   const { email, emailRef, onChangeEmail } = useSigninInput();
   const [password, passwordRef, onChangePassword] = usePasswordInput();
@@ -10,21 +13,48 @@ function SignInPage() {
     emailError?: string;
     domainError?: string;
     passwordError?: string;
+    loginFailError?: string;
   }>({});
 
-  const getSigninFormErrors = () => {
+  const navigate = useNavigate();
+
+  const validateSigninForm = (): boolean => {
     if (!email?.trim()) {
       setErrors({ emailError: "이메일을 입력해주세요." });
       emailRef.current?.focus();
-      return;
+      return false;
     }
     if (!password?.trim()) {
       setErrors({ passwordError: "비밀번호를 입력해주세요." });
       passwordRef.current?.focus();
-      return;
+      return false;
     }
     setErrors({});
-    console.log("로그인 정보:", email, password);
+    return true;
+  };
+
+  const handleSigninSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!validateSigninForm()) {
+      return;
+    }
+
+    try {
+      await signin(email, password);
+      navigate("/subscription");
+    } catch (error) {
+      console.error("로그인 오류:", error);
+
+      if (
+        error instanceof Error &&
+        error.message === "Invalid login credentials"
+      ) {
+        setErrors({
+          loginFailError: "이메일 또는 비밀번호가 일치하지 않습니다.",
+        });
+      }
+    }
   };
 
   return (
@@ -32,13 +62,7 @@ function SignInPage() {
       <div className="mt-20 flex justify-center">
         <div className="w-full max-w-lg bg-white p-8">
           <h2 className="mb-6 text-center text-2xl font-bold">로그인</h2>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault(); // 폼 전송 방지
-              getSigninFormErrors();
-            }}
-            className="flex flex-col gap-4"
-          >
+          <form onSubmit={handleSigninSubmit} className="flex flex-col gap-4">
             <span>이메일</span>
 
             <input
@@ -63,6 +87,11 @@ function SignInPage() {
             {errors.passwordError && (
               <span className="text-sm text-red-500">
                 {errors.passwordError}
+              </span>
+            )}
+            {errors.loginFailError && (
+              <span className="text-sm text-red-500">
+                {errors.loginFailError}
               </span>
             )}
 
