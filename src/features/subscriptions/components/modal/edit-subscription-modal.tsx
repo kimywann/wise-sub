@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 
 interface EditSubscriptionModalProps {
   onClose: () => void;
@@ -9,6 +9,12 @@ function EditSubscriptionModal({
   onClose,
   serviceName,
 }: EditSubscriptionModalProps) {
+  const [name, setName] = useState(serviceName);
+  const [cost, setCost] = useState(0);
+  const [startDate, setStartDate] = useState(
+    new Date().toISOString().split("T")[0],
+  );
+
   return (
     <div className="mx-auto mb-10 h-[500px] w-[500px] rounded-2xl border border-slate-300 bg-white p-8 shadow-md">
       <header className="mb-8 flex flex-row justify-between">
@@ -27,13 +33,19 @@ function EditSubscriptionModal({
       {/* 서비스명 */}
       <div className="mb-6 flex flex-col rounded-2xl border border-slate-300 p-4 shadow-sm">
         <div className="font-bold">구독 서비스명</div>
-        <input type="text" value={serviceName} />
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
       </div>
 
       {/* 월 비용 */}
       <div className="mb-6 flex flex-col rounded-2xl border border-slate-300 p-4 shadow-sm">
         <div className="font-bold">비용</div>
         <input
+          value={cost}
+          onChange={(e) => setCost(Number(e.target.value))}
           type="text"
           placeholder="이 구독 서비스에 한 달에 얼마 쓰고 계신가요?"
         />
@@ -42,7 +54,11 @@ function EditSubscriptionModal({
       {/* 구독 시작일 */}
       <div className="mb-6 flex flex-col rounded-2xl border border-slate-300 p-4 shadow-sm">
         <div className="font-bold">구독 시작일</div>
-        <input type="date" />
+        <input
+          type="date"
+          value={startDate}
+          onChange={(e) => setStartDate(e.target.value)}
+        />
       </div>
 
       {/* 하단 버튼 */}
