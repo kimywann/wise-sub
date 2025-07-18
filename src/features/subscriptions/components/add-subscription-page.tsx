@@ -1,6 +1,7 @@
-import ServiceBox from "./service/components/service-box";
 import { useNavigate } from "react-router-dom";
+
 import leftIcon from "@/assets/icon/left.svg";
+import ServiceBox from "./service/components/service-box";
 
 function AddSubscriptionPage() {
   const navigate = useNavigate();
