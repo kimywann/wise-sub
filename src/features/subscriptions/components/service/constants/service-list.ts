@@ -25,37 +25,38 @@ import RocketWow from "@/assets/logo/etc/RocketWow.png";
 export type ServiceCategory = "OTT" | "MUSIC" | "AI" | "ETC";
 
 export interface ServiceItem {
-  name: string;
+  id: string; // 고유 ID - DB 저장용
+  name: string; // 사용자에게 보여줄 이름
   image: string;
 }
 
 export const SERVICES_LIST: Record<ServiceCategory, ServiceItem[]> = {
   OTT: [
-    { name: "넷플릭스", image: Netflix },
-    { name: "티빙", image: Tving },
-    { name: "디즈니+", image: Disney },
-    { name: "라프텔", image: Laftel },
-    { name: "왓챠", image: Watcha },
-    { name: "웨이브", image: Wavve },
+    { id: "netflix", name: "넷플릭스", image: Netflix },
+    { id: "tving", name: "티빙", image: Tving },
+    { id: "disney", name: "디즈니+", image: Disney },
+    { id: "laftel", name: "라프텔", image: Laftel },
+    { id: "watcha", name: "왓챠", image: Watcha },
+    { id: "wavve", name: "웨이브", image: Wavve },
   ],
   MUSIC: [
-    { name: "유튜브 뮤직", image: YouTubeMusic },
-    { name: "Apple Music", image: AppleMusic },
-    { name: "Melon", image: Melon },
-    { name: "Spotify", image: Spotify },
-    { name: "Genie", image: Genie },
-    { name: "VIBE", image: VIBE },
+    { id: "youtube_music", name: "유튜브 뮤직", image: YouTubeMusic },
+    { id: "apple_music", name: "Apple Music", image: AppleMusic },
+    { id: "melon", name: "Melon", image: Melon },
+    { id: "spotify", name: "Spotify", image: Spotify },
+    { id: "genie", name: "Genie", image: Genie },
+    { id: "vibe", name: "VIBE", image: VIBE },
   ],
   AI: [
-    { name: "ChatGPT", image: ChatGPT },
-    { name: "Claude", image: Claude },
-    { name: "Gemini", image: Gemini },
-    { name: "Perplexity", image: Perplexity },
-    { name: "Cursor", image: Cursor },
-    { name: "Copilot", image: Copilot },
+    { id: "chatgpt", name: "ChatGPT", image: ChatGPT },
+    { id: "claude", name: "Claude", image: Claude },
+    { id: "gemini", name: "Gemini", image: Gemini },
+    { id: "perplexity", name: "Perplexity", image: Perplexity },
+    { id: "cursor", name: "Cursor", image: Cursor },
+    { id: "copilot", name: "Copilot", image: Copilot },
   ],
   ETC: [
-    { name: "배민클럽", image: BaeminClub },
-    { name: "로켓와우", image: RocketWow },
+    { id: "baemin_club", name: "배민클럽", image: BaeminClub },
+    { id: "rocket_wow", name: "로켓와우", image: RocketWow },
   ],
 };
