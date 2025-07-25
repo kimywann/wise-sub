@@ -1,9 +1,25 @@
 import { SERVICES_LIST, type ServiceItem } from "../constants/service-list";
 import ServiceCard from "./service-card";
 
+import { useUser } from "@supabase/auth-helpers-react";
+import { addSubscription } from "../../api/addSubscription";
+
 export default function ServiceBox() {
-  const addBoxClick = (service: ServiceItem) => {
-    alert(`${service.name} 서비스가 추가되었습니다.`);
+  const user = useUser();
+
+  const addBoxClick = async (service: ServiceItem) => {
+    if (!user) {
+      alert("로그인 후 이용해주세요!");
+      return;
+    }
+
+    try {
+      await addSubscription(user.id, service);
+      alert(`${service.name} 서비스가 추가되었습니다.`);
+    } catch (error) {
+      console.error("추가 실패:", error);
+      alert("구독 추가에 실패했습니다.");
+    }
   };
 
   return (
@@ -16,7 +32,7 @@ export default function ServiceBox() {
             {services.map((service) => (
               <div
                 key={service.name}
-                className="flex h-30 w-30 cursor-pointer flex-col rounded-2xl border border-slate-300 hover:border-indigo-500"
+                className="flex h-30 w-30 cursor-pointer flex-col rounded-2xl border border-slate-300 hover:border-indigo-500 hover:shadow-lg"
                 onClick={() => addBoxClick(service)}
               >
                 <ServiceCard service={service} />
