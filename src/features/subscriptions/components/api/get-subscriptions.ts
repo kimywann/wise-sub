@@ -1,6 +1,6 @@
 import { supabase } from "@/lib/supabaseClient";
 
-const getUserSubscriptions = async (userId: string) => {
+const getSubscriptions = async (userId: string) => {
   const { data, error } = await supabase
     .from("user_subscription")
     .select("*")
@@ -13,4 +13,4 @@ const getUserSubscriptions = async (userId: string) => {
   return data;
 };
 
-export default getUserSubscriptions;
+export default getSubscriptions;

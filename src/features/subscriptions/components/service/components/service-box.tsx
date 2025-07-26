@@ -2,7 +2,7 @@ import { SERVICES_LIST, type ServiceItem } from "../constants/service-list";
 import ServiceCard from "./service-card";
 
 import { useUser } from "@supabase/auth-helpers-react";
-import { addSubscription } from "../../api/addSubscription";
+import { addSubscription } from "../../api/add-subscription";
 
 export default function ServiceBox() {
   const user = useUser();

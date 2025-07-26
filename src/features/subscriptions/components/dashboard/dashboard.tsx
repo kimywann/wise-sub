@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useUser } from "@supabase/auth-helpers-react";
-import getUserSubscriptions from "../api/getUserSubscriptions";
+import getSubscriptions from "../api/get-subscriptions";
 
 import Button from "@/common/components/button/button";
 import EditSubscriptionModal from "../modal/edit-subscription-modal";
@@ -25,7 +25,7 @@ function Dashboard() {
 
     const fetchData = async () => {
       try {
-        const data = await getUserSubscriptions(user.id);
+        const data = await getSubscriptions(user.id);
         setUserSubscriptions(data);
       } catch (error) {
         console.error("구독 불러오기 실패", error);
