@@ -1,32 +1,45 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useUser } from "@supabase/auth-helpers-react";
+import getUserSubscriptions from "../api/getUserSubscriptions";
 
 import Button from "@/common/components/button/button";
 import EditSubscriptionModal from "../modal/edit-subscription-modal";
 import { Link } from "react-router-dom";
 
-const subscriptionList = [
-  {
-    id: 1,
-    name: "Netflix",
-    price: 17000,
-  },
-  {
-    id: 2,
-    name: "Spotify",
-    price: 13900,
-  },
-  {
-    id: 3,
-    name: "YouTube Premium",
-    price: 14900,
-  },
-];
-
-const monthlyCost = 89000;
-const subscriptionCount = 5;
+interface UserSubscription {
+  id: number;
+  service_name: string;
+  price: string;
+}
 
 function Dashboard() {
   const [openEditModal, setOpenEditModal] = useState<number | null>(null);
+  const [userSubscriptions, setUserSubscriptions] = useState<
+    UserSubscription[]
+  >([]);
+
+  const user = useUser();
+
+  useEffect(() => {
+    if (!user) return;
+
+    const fetchData = async () => {
+      try {
+        const data = await getUserSubscriptions(user.id);
+        setUserSubscriptions(data);
+      } catch (error) {
+        console.error("구독 불러오기 실패", error);
+      }
+    };
+    fetchData();
+  }, [user]);
+
+  const monthlyCost = userSubscriptions.reduce(
+    (acc, current) => acc + Number(current.price),
+    0,
+  );
+
+  const subscriptionCount = userSubscriptions.length;
 
   const handleOpenEditModal = (id: number) => {
     setOpenEditModal(id);
@@ -66,27 +79,29 @@ function Dashboard() {
 
         {/* 프로토타입용 더미 서비스들 */}
         <div className="flex flex-col gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {subscriptionList.map(({ id, name, price }) => {
+          {userSubscriptions.map((item) => {
             return (
-              <div key={id}>
+              <div key={item.id}>
                 <div
-                  onClick={() => handleOpenEditModal(id)}
+                  onClick={() => handleOpenEditModal(item.id)}
                   className="flex items-center gap-3 rounded-2xl border border-slate-200 p-4 hover:cursor-pointer hover:bg-slate-300"
                 >
                   <div className="h-10 w-10 rounded-full bg-indigo-600"></div>
                   <div className="flex-1">
-                    <h3 className="font-medium text-slate-900">{name}</h3>
+                    <h3 className="font-medium text-slate-900">
+                      {item.service_name}
+                    </h3>
                     <p className="text-sm text-slate-600">
-                      {price.toLocaleString()}원/월
+                      {item.price.toLocaleString()}원/월
                     </p>
                   </div>
                 </div>
 
-                {openEditModal === id && (
+                {openEditModal === item.id && (
                   <div className="fixed inset-0 z-20 flex items-center justify-center bg-gray-400/30">
                     <EditSubscriptionModal
                       onClose={handleCloseModal}
-                      serviceName={name}
+                      serviceName={item.service_name}
                     />
                   </div>
                 )}
