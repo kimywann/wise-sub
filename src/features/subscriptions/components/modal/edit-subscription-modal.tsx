@@ -1,19 +1,29 @@
 import { useState } from "react";
+import updateSubscription from "../api/update-subscription";
 
 interface EditSubscriptionModalProps {
   onClose: () => void;
+  id: number;
   serviceName: string;
+  price: string;
 }
 
 function EditSubscriptionModal({
   onClose,
+  id,
   serviceName,
+  price,
 }: EditSubscriptionModalProps) {
   const [name, setName] = useState(serviceName);
-  const [cost, setCost] = useState(0);
+  const [servicePrice, setServicePrice] = useState(price);
   const [startDate, setStartDate] = useState(
     new Date().toISOString().split("T")[0],
   );
+
+  const handleUpdateSubscription = async () => {
+    await updateSubscription(id, name, servicePrice, startDate);
+    onClose();
+  };
 
   return (
     <div className="mx-auto mb-10 h-[500px] w-[500px] rounded-2xl border border-slate-300 bg-white p-8 shadow-md">
@@ -44,8 +54,8 @@ function EditSubscriptionModal({
       <div className="mb-6 flex flex-col rounded-2xl border border-slate-300 p-4 shadow-sm">
         <div className="font-bold">비용</div>
         <input
-          value={cost}
-          onChange={(e) => setCost(Number(e.target.value))}
+          value={servicePrice}
+          onChange={(e) => setServicePrice(e.target.value)}
           type="text"
           placeholder="이 구독 서비스에 한 달에 얼마 쓰고 계신가요?"
         />
@@ -72,7 +82,7 @@ function EditSubscriptionModal({
         </button>
         <button
           type="button"
-          onClick={() => {}}
+          onClick={handleUpdateSubscription}
           className="text-lg font-bold text-blue-500 hover:cursor-pointer"
         >
           저장하기
