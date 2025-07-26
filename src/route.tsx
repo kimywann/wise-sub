@@ -8,7 +8,7 @@ import SignInPage from "./features/auth/sign-in-page";
 import SignUpPage from "./features/auth/sign-up-page";
 
 import MySubscriptionsPage from "./features/subscriptions/my-subscriptions-page";
-import AddSubscriptionPage from "./features/subscriptions/components/add-subscription-page";
+import AddSubscriptionPage from "./features/subscriptions/add-subscription-page";
 
 const router = createBrowserRouter([
   {
