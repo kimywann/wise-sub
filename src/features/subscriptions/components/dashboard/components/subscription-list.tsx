@@ -51,9 +51,20 @@ export default function SubscriptionList({
 
   return (
     <div>
-      <h2 className="mb-4 text-lg font-semibold text-slate-900">
-        구독 중인 서비스
-      </h2>
+      <div className="mt-10 mb-6 flex flex-row justify-between">
+        <h2 className="text-2xl font-semibold text-slate-900">
+          구독 중인 서비스
+        </h2>
+
+        {/* 구독 서비스 추가 버튼 */}
+        <div>
+          <Link to="/subscription/add">
+            <Button type="button" size="md" variant="primary">
+              구독 서비스 추가
+            </Button>
+          </Link>
+        </div>
+      </div>
 
       <div className="flex flex-col gap-4 md:grid-cols-2 lg:grid-cols-3">
         {subscriptions.map((item) => (
@@ -80,6 +91,8 @@ export default function SubscriptionList({
                   id={item.id}
                   serviceName={item.service_name}
                   price={item.price}
+                  startDate={item.start_date}
+                  billingCycle={item.billing_cycle}
                   onUpdate={(updatedData) =>
                     handleUpdateSubscription(item.id, updatedData)
                   }
@@ -89,15 +102,6 @@ export default function SubscriptionList({
             )}
           </div>
         ))}
-      </div>
-
-      {/* 구독 서비스 추가 버튼 */}
-      <div className="mt-6 flex justify-end">
-        <Link to="/subscription/add">
-          <Button type="button" size="md" variant="primary">
-            구독 서비스 추가
-          </Button>
-        </Link>
       </div>
     </div>
   );
