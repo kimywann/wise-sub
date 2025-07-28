@@ -57,11 +57,9 @@ function EditSubscriptionModal({
   };
 
   return (
-    <div className="mx-auto mb-10 h-[500px] w-[500px] rounded-2xl border border-slate-300 bg-white p-8 shadow-md">
-      <header className="mb-8 flex flex-row justify-between">
-        <div className="mb-5 text-2xl font-bold text-indigo-600">
-          구독 정보 편집
-        </div>
+    <div className="mx-auto mb-10 h-[550px] w-[400px] rounded-xl border border-slate-300 bg-white p-8 shadow-md">
+      <header className="flex flex-row justify-between">
+        <div className="mb-5 text-2xl font-bold text-indigo-600"></div>
         <button
           type="button"
           onClick={onClose}
@@ -72,8 +70,8 @@ function EditSubscriptionModal({
       </header>
 
       {/* 서비스명 */}
-      <div className="mb-6 flex flex-col rounded-2xl border border-slate-300 p-4 shadow-sm">
-        <div className="font-bold">구독 서비스명</div>
+      <div className="mb-1 font-bold">구독 서비스명</div>
+      <div className="mb-6 flex flex-col rounded-lg border border-slate-300 p-4 shadow-sm">
         <input
           type="text"
           value={name}
@@ -81,9 +79,9 @@ function EditSubscriptionModal({
         />
       </div>
 
-      {/* 월 비용 */}
-      <div className="mb-6 flex flex-col rounded-2xl border border-slate-300 p-4 shadow-sm">
-        <div className="font-bold">비용</div>
+      {/* 구독 비용 */}
+      <div className="mb-1 font-bold">비용</div>
+      <div className="mb-6 flex flex-col rounded-lg border border-slate-300 p-4 shadow-sm">
         <input
           value={servicePrice}
           onChange={(e) => setServicePrice(e.target.value)}
@@ -93,8 +91,8 @@ function EditSubscriptionModal({
       </div>
 
       {/* 구독 시작일 */}
-      <div className="mb-6 flex flex-col rounded-2xl border border-slate-300 p-4 shadow-sm">
-        <div className="font-bold">구독 시작일</div>
+      <div className="mb-1 font-bold">구독 시작일</div>
+      <div className="mb-6 flex flex-col rounded-lg border border-slate-300 p-4 shadow-sm">
         <input
           type="date"
           value={startDate}
@@ -102,21 +100,29 @@ function EditSubscriptionModal({
         />
       </div>
 
+      <div className="mb-1 font-bold">결제 주기</div>
+      <div className="mb-6 flex flex-col rounded-lg border border-slate-300 p-4 shadow-sm">
+        <select>
+          <option value="monthly">월간</option>
+          <option value="yearly">연간</option>
+        </select>
+      </div>
+
       {/* 하단 버튼 */}
-      <div className="mt-10 flex flex-row justify-center gap-16">
+      <div className="mt-3 flex flex-row justify-center gap-16">
         <button
           type="button"
           onClick={handleDeleteSubscription}
-          className="text-lg font-bold text-red-500 hover:cursor-pointer"
+          className="rounded-2xl px-4 py-2 text-lg font-bold text-red-500 hover:cursor-pointer hover:rounded-xl hover:bg-red-100"
         >
-          삭제하기
+          삭제
         </button>
         <button
           type="button"
           onClick={handleUpdateSubscription}
-          className="text-lg font-bold text-blue-500 hover:cursor-pointer"
+          className="rounded-2xl px-4 py-2 text-lg font-bold text-blue-500 hover:cursor-pointer hover:rounded-xl hover:bg-blue-100"
         >
-          저장하기
+          저장
         </button>
       </div>
     </div>
