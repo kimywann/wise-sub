@@ -28,10 +28,12 @@ function EditSubscriptionModal({
   onDelete,
   onUpdate,
 }: EditSubscriptionModalProps) {
-  const [editedServiceName, setEditedServiceName] = useState(serviceName);
-  const [editedServicePrice, setEditedServicePrice] = useState(price);
-  const [editedStartDate, setEditedStartDate] = useState(startDate);
-  const [editedBillingCycle, setEditedBillingCycle] = useState(billingCycle);
+  const [editedServiceName, setEditedServiceName] = useState(serviceName || "");
+  const [editedServicePrice, setEditedServicePrice] = useState(price || "");
+  const [editedStartDate, setEditedStartDate] = useState(startDate || "");
+  const [editedBillingCycle, setEditedBillingCycle] = useState(
+    billingCycle || "monthly",
+  );
 
   const handleUpdateSubscription = async () => {
     try {
