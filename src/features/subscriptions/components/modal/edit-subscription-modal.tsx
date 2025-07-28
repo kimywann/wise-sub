@@ -7,6 +7,8 @@ interface EditSubscriptionModalProps {
   id: number;
   serviceName: string;
   price: string;
+  startDate: string;
+  billingCycle: string;
   onClose: () => void;
   onDelete: () => void;
   onUpdate: (updatedData: {
@@ -20,26 +22,32 @@ function EditSubscriptionModal({
   id,
   serviceName,
   price,
+  startDate,
+  billingCycle,
   onClose,
   onDelete,
   onUpdate,
 }: EditSubscriptionModalProps) {
-  const [name, setName] = useState(serviceName);
-  const [servicePrice, setServicePrice] = useState(price);
-  const [startDate, setStartDate] = useState(
-    new Date().toISOString().split("T")[0],
-  );
+  const [editedServiceName, setEditedServiceName] = useState(serviceName);
+  const [editedServicePrice, setEditedServicePrice] = useState(price);
+  const [editedStartDate, setEditedStartDate] = useState(startDate);
+  const [editedBillingCycle, setEditedBillingCycle] = useState(billingCycle);
 
   const handleUpdateSubscription = async () => {
     try {
       // 서버 업데이트
-      await updateSubscription(id, name, servicePrice, startDate);
+      await updateSubscription(
+        id,
+        editedServiceName,
+        editedServicePrice,
+        editedStartDate,
+      );
 
       // 부모 컴포넌트에 업데이트된 데이터 전달
       onUpdate({
-        service_name: name,
-        price: servicePrice,
-        start_date: startDate,
+        service_name: editedServiceName,
+        price: editedServicePrice,
+        start_date: editedStartDate,
       });
     } catch (error) {
       console.error("구독 업데이트 실패", error);
@@ -74,8 +82,8 @@ function EditSubscriptionModal({
       <div className="mb-6 flex flex-col rounded-lg border border-slate-300 p-4 shadow-sm">
         <input
           type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={editedServiceName}
+          onChange={(e) => setEditedServiceName(e.target.value)}
         />
       </div>
 
@@ -83,8 +91,8 @@ function EditSubscriptionModal({
       <div className="mb-1 font-bold">비용</div>
       <div className="mb-6 flex flex-col rounded-lg border border-slate-300 p-4 shadow-sm">
         <input
-          value={servicePrice}
-          onChange={(e) => setServicePrice(e.target.value)}
+          value={editedServicePrice}
+          onChange={(e) => setEditedServicePrice(e.target.value)}
           type="text"
           placeholder="이 구독 서비스에 한 달에 얼마 쓰고 계신가요?"
         />
@@ -95,14 +103,17 @@ function EditSubscriptionModal({
       <div className="mb-6 flex flex-col rounded-lg border border-slate-300 p-4 shadow-sm">
         <input
           type="date"
-          value={startDate}
-          onChange={(e) => setStartDate(e.target.value)}
+          value={editedStartDate}
+          onChange={(e) => setEditedStartDate(e.target.value)}
         />
       </div>
 
       <div className="mb-1 font-bold">결제 주기</div>
       <div className="mb-6 flex flex-col rounded-lg border border-slate-300 p-4 shadow-sm">
-        <select>
+        <select
+          value={editedBillingCycle}
+          onChange={(e) => setEditedBillingCycle(e.target.value)}
+        >
           <option value="monthly">월간</option>
           <option value="yearly">연간</option>
         </select>
