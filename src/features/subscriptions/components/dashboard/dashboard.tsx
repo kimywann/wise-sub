@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
 import { useUser } from "@supabase/auth-helpers-react";
+
+import EditSubscriptionModal from "../modal/edit-subscription-modal";
 import getSubscriptions from "../api/get-subscriptions";
 import updateSubscription from "../api/update-subscription";
+import deleteSubscription from "../api/delete-subscription";
 
 import Button from "@/common/components/button/button";
-import EditSubscriptionModal from "../modal/edit-subscription-modal";
+
 import { Link } from "react-router-dom";
 
 interface UserSubscription {
@@ -84,6 +87,18 @@ function Dashboard() {
     }
   };
 
+  const handleDeleteSubscription = async (id: number) => {
+    try {
+      await deleteSubscription(id);
+
+      // TODO: 성능 이슈시, findIndex + slice 방식으로 최적화 고려
+      setUserSubscriptions((prev) => prev.filter((sub) => sub.id !== id));
+      setOpenEditModal(null);
+    } catch (error) {
+      console.error("구독 삭제 실패", error);
+    }
+  };
+
   return (
     <div className="mt-14 flex flex-col gap-6 p-6">
       <div className="mb-4 flex justify-center text-3xl font-bold text-indigo-600">
@@ -142,6 +157,7 @@ function Dashboard() {
                       onUpdate={(updatedData) =>
                         handleUpdateSubscription(item.id, updatedData)
                       }
+                      onDelete={() => handleDeleteSubscription(item.id)}
                     />
                   </div>
                 )}

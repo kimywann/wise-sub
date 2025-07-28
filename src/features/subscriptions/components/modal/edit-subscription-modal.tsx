@@ -1,11 +1,14 @@
 import { useState } from "react";
+
 import updateSubscription from "../api/update-subscription";
+import deleteSubscription from "../api/delete-subscription";
 
 interface EditSubscriptionModalProps {
   id: number;
   serviceName: string;
   price: string;
   onClose: () => void;
+  onDelete: () => void;
   onUpdate: (updatedData: {
     service_name: string;
     price: string;
@@ -18,6 +21,7 @@ function EditSubscriptionModal({
   serviceName,
   price,
   onClose,
+  onDelete,
   onUpdate,
 }: EditSubscriptionModalProps) {
   const [name, setName] = useState(serviceName);
@@ -39,6 +43,16 @@ function EditSubscriptionModal({
       });
     } catch (error) {
       console.error("구독 업데이트 실패", error);
+    }
+  };
+
+  const handleDeleteSubscription = async () => {
+    try {
+      await deleteSubscription(id);
+      onDelete();
+      onClose();
+    } catch (error) {
+      console.error("구독 삭제 실패", error);
     }
   };
 
@@ -92,7 +106,7 @@ function EditSubscriptionModal({
       <div className="mt-10 flex flex-row justify-center gap-16">
         <button
           type="button"
-          onClick={() => {}}
+          onClick={handleDeleteSubscription}
           className="text-lg font-bold text-red-500 hover:cursor-pointer"
         >
           삭제하기
