@@ -18,7 +18,7 @@ function HomePage() {
           <div className="mt-6">
             <Link to="/signin">
               <Button type="button" size="md" variant="muted">
-                무료로 구독 관리 시작하기
+                구독 관리 시작하기
               </Button>
             </Link>
           </div>
