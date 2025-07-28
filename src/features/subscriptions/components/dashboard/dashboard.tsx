@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useUser } from "@supabase/auth-helpers-react";
 import getSubscriptions from "../api/get-subscriptions";
+import updateSubscription from "../api/update-subscription";
 
 import Button from "@/common/components/button/button";
 import EditSubscriptionModal from "../modal/edit-subscription-modal";
@@ -47,6 +48,40 @@ function Dashboard() {
 
   const handleCloseModal = () => {
     setOpenEditModal(null);
+  };
+
+  // 구독 업데이트 핸들러 추가
+  const handleUpdateSubscription = async (
+    id: number,
+    updatedData: { service_name: string; price: string; start_date: string },
+  ) => {
+    try {
+      // 서버 업데이트
+      await updateSubscription(
+        id,
+        updatedData.service_name,
+        updatedData.price,
+        updatedData.start_date,
+      );
+
+      // 로컬 상태 업데이트
+      setUserSubscriptions((prev) =>
+        prev.map((sub) =>
+          sub.id === id
+            ? {
+                ...sub,
+                service_name: updatedData.service_name,
+                price: updatedData.price,
+              }
+            : sub,
+        ),
+      );
+
+      // 모달 닫기
+      setOpenEditModal(null);
+    } catch (error) {
+      console.error("구독 업데이트 실패", error);
+    }
   };
 
   return (
@@ -101,7 +136,12 @@ function Dashboard() {
                   <div className="fixed inset-0 z-20 flex items-center justify-center bg-gray-400/30">
                     <EditSubscriptionModal
                       onClose={handleCloseModal}
+                      id={item.id}
                       serviceName={item.service_name}
+                      price={item.price}
+                      onUpdate={(updatedData) =>
+                        handleUpdateSubscription(item.id, updatedData)
+                      }
                     />
                   </div>
                 )}

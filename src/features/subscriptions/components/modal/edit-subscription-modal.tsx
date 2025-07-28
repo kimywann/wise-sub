@@ -2,17 +2,23 @@ import { useState } from "react";
 import updateSubscription from "../api/update-subscription";
 
 interface EditSubscriptionModalProps {
-  onClose: () => void;
   id: number;
   serviceName: string;
   price: string;
+  onClose: () => void;
+  onUpdate: (updatedData: {
+    service_name: string;
+    price: string;
+    start_date: string;
+  }) => void;
 }
 
 function EditSubscriptionModal({
-  onClose,
   id,
   serviceName,
   price,
+  onClose,
+  onUpdate,
 }: EditSubscriptionModalProps) {
   const [name, setName] = useState(serviceName);
   const [servicePrice, setServicePrice] = useState(price);
@@ -21,8 +27,19 @@ function EditSubscriptionModal({
   );
 
   const handleUpdateSubscription = async () => {
-    await updateSubscription(id, name, servicePrice, startDate);
-    onClose();
+    try {
+      // 서버 업데이트
+      await updateSubscription(id, name, servicePrice, startDate);
+
+      // 부모 컴포넌트에 업데이트된 데이터 전달
+      onUpdate({
+        service_name: name,
+        price: servicePrice,
+        start_date: startDate,
+      });
+    } catch (error) {
+      console.error("구독 업데이트 실패", error);
+    }
   };
 
   return (
