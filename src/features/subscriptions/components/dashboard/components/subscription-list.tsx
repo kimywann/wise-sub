@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import EditSubscriptionModal from "@/features/subscriptions/components/modal/edit-subscription-modal";
 
-import { useSubscriptionApi } from "@/features/subscriptions/components/hooks/useSubscriptionApi";
+import { useSubscriptionState } from "@/features/subscriptions/components/hooks/useSubscriptionState";
 import type { UserSubscription } from "@/common/types/user-subscription-type";
 
 import Button from "@/common/components/button/button";
@@ -19,8 +19,10 @@ export default function SubscriptionList({
 }: SubscriptionListProps) {
   const [openEditModal, setOpenEditModal] = useState<number | null>(null);
 
-  const { handleUpdateSubscription, handleDeleteSubscription } =
-    useSubscriptionApi();
+  const { handleUpdate, handleDelete } = useSubscriptionState({
+    subscriptions,
+    onSubscriptionUpdate,
+  });
 
   const handleOpenEditModal = (id: number) => {
     setOpenEditModal(id);
@@ -30,40 +32,20 @@ export default function SubscriptionList({
     setOpenEditModal(null);
   };
 
-  const handleUpdate = async (
+  const handleUpdateSubscription = async (
     id: number,
     updatedData: { service_name: string; price: string; start_date: string },
   ) => {
-    try {
-      await handleUpdateSubscription(id, updatedData);
-
-      // 로컬 상태 업데이트
-      const updatedSubscriptions = subscriptions.map((sub) =>
-        sub.id === id
-          ? {
-              ...sub,
-              service_name: updatedData.service_name,
-              price: updatedData.price,
-            }
-          : sub,
-      );
-
-      onSubscriptionUpdate(updatedSubscriptions);
+    const success = await handleUpdate(id, updatedData);
+    if (success) {
       setOpenEditModal(null);
-    } catch (error) {
-      console.error("구독 업데이트 실패", error);
     }
   };
 
-  const handleDelete = async (id: number) => {
-    try {
-      await handleDeleteSubscription(id);
-
-      const updatedSubscriptions = subscriptions.filter((sub) => sub.id !== id);
-      onSubscriptionUpdate(updatedSubscriptions);
+  const handleDeleteSubscription = async (id: number) => {
+    const success = await handleDelete(id);
+    if (success) {
       setOpenEditModal(null);
-    } catch (error) {
-      console.error("구독 삭제 실패", error);
     }
   };
 
@@ -98,8 +80,10 @@ export default function SubscriptionList({
                   id={item.id}
                   serviceName={item.service_name}
                   price={item.price}
-                  onUpdate={(updatedData) => handleUpdate(item.id, updatedData)}
-                  onDelete={() => handleDelete(item.id)}
+                  onUpdate={(updatedData) =>
+                    handleUpdateSubscription(item.id, updatedData)
+                  }
+                  onDelete={() => handleDeleteSubscription(item.id)}
                 />
               </div>
             )}
