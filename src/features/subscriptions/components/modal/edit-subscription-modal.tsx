@@ -105,6 +105,7 @@ function EditSubscriptionModal({
           type="date"
           value={editedStartDate}
           onChange={(e) => setEditedStartDate(e.target.value)}
+          max={new Date().toISOString().split("T")[0]}
         />
       </div>
 
