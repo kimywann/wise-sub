@@ -3,6 +3,7 @@ import ServiceCard from "./service-card";
 
 import { useUser } from "@supabase/auth-helpers-react";
 import { addSubscription } from "../../api/add-subscription";
+import { toast } from "sonner";
 
 export default function ServiceBox() {
   const user = useUser();
@@ -15,10 +16,10 @@ export default function ServiceBox() {
 
     try {
       await addSubscription(user.id, service);
-      alert(`${service.name} 서비스가 추가되었습니다.`);
+      toast.success(`${service.name} 서비스가 추가되었습니다.`);
     } catch (error) {
       console.error("추가 실패:", error);
-      alert("구독 추가에 실패했습니다.");
+      toast.error("구독 추가에 실패했습니다.");
     }
   };
 
