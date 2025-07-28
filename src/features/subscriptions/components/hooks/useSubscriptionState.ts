@@ -15,7 +15,12 @@ export const useSubscriptionState = ({
 
   const handleUpdate = async (
     id: number,
-    updatedData: { service_name: string; price: string; start_date: string },
+    updatedData: {
+      service_name: string;
+      price: string;
+      start_date: string;
+      billing_cycle: string;
+    },
   ) => {
     try {
       await handleUpdateSubscription(id, updatedData);
@@ -27,6 +32,8 @@ export const useSubscriptionState = ({
               ...sub,
               service_name: updatedData.service_name,
               price: updatedData.price,
+              start_date: updatedData.start_date,
+              billing_cycle: updatedData.billing_cycle,
             }
           : sub,
       );

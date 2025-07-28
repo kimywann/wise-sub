@@ -15,6 +15,7 @@ interface EditSubscriptionModalProps {
     service_name: string;
     price: string;
     start_date: string;
+    billing_cycle: string;
   }) => void;
 }
 
@@ -28,12 +29,10 @@ function EditSubscriptionModal({
   onDelete,
   onUpdate,
 }: EditSubscriptionModalProps) {
-  const [editedServiceName, setEditedServiceName] = useState(serviceName || "");
-  const [editedServicePrice, setEditedServicePrice] = useState(price || "");
-  const [editedStartDate, setEditedStartDate] = useState(startDate || "");
-  const [editedBillingCycle, setEditedBillingCycle] = useState(
-    billingCycle || "monthly",
-  );
+  const [editedServiceName, setEditedServiceName] = useState(serviceName);
+  const [editedServicePrice, setEditedServicePrice] = useState(price);
+  const [editedStartDate, setEditedStartDate] = useState(startDate);
+  const [editedBillingCycle, setEditedBillingCycle] = useState(billingCycle);
 
   const handleUpdateSubscription = async () => {
     try {
@@ -43,6 +42,7 @@ function EditSubscriptionModal({
         editedServiceName,
         editedServicePrice,
         editedStartDate,
+        editedBillingCycle,
       );
 
       // 부모 컴포넌트에 업데이트된 데이터 전달
@@ -50,6 +50,7 @@ function EditSubscriptionModal({
         service_name: editedServiceName,
         price: editedServicePrice,
         start_date: editedStartDate,
+        billing_cycle: editedBillingCycle,
       });
     } catch (error) {
       console.error("구독 업데이트 실패", error);
