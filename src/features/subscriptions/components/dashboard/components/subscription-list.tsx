@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import clsx from "clsx";
 
 import EditSubscriptionModal from "@/features/subscriptions/components/modal/edit-subscription-modal";
 
@@ -34,7 +35,12 @@ export default function SubscriptionList({
 
   const handleUpdateSubscription = async (
     id: number,
-    updatedData: { service_name: string; price: string; start_date: string },
+    updatedData: {
+      service_name: string;
+      price: string;
+      start_date: string;
+      billing_cycle: string;
+    },
   ) => {
     const success = await handleUpdate(id, updatedData);
     if (success) {
@@ -78,9 +84,21 @@ export default function SubscriptionList({
                 <h3 className="font-medium text-slate-900">
                   {item.service_name}
                 </h3>
-                <p className="text-sm text-slate-600">
-                  {item.price.toLocaleString()}원/월
-                </p>
+                <div className="flex flex-row gap-2">
+                  <p
+                    className={clsx(
+                      "text-sm",
+                      item.billing_cycle === "monthly"
+                        ? "rounded-md bg-blue-100 px-1 font-medium text-blue-600"
+                        : "rounded-md bg-orange-100 px-1 font-medium text-orange-600",
+                    )}
+                  >
+                    {item.billing_cycle === "monthly" ? "월간" : "연간"}
+                  </p>
+                  <p className="text-sm text-slate-600">
+                    {Number(item.price).toLocaleString()}원
+                  </p>
+                </div>
               </div>
             </div>
 
