@@ -32,7 +32,7 @@ export default function ServiceBox() {
             {services.map((service) => (
               <div
                 key={service.name}
-                className="flex h-30 w-30 cursor-pointer flex-col rounded-2xl border border-slate-300 hover:border-indigo-500 hover:shadow-lg"
+                className="flex h-30 w-30 cursor-pointer flex-col rounded-2xl border border-slate-300 hover:border-indigo-500 hover:shadow-md"
                 onClick={() => addBoxClick(service)}
               >
                 <ServiceCard service={service} />

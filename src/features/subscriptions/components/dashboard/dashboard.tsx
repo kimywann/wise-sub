@@ -134,7 +134,7 @@ function Dashboard() {
               <div key={item.id}>
                 <div
                   onClick={() => handleOpenEditModal(item.id)}
-                  className="flex items-center gap-3 rounded-2xl border border-slate-200 p-4 hover:cursor-pointer hover:bg-slate-300"
+                  className="flex cursor-pointer items-center gap-3 rounded-2xl border border-slate-300 p-4 hover:border-indigo-500 hover:shadow-md"
                 >
                   <div className="h-10 w-10 rounded-full bg-indigo-600"></div>
                   <div className="flex-1">
