@@ -41,11 +41,11 @@ export const SERVICES_LIST: Record<ServiceCategory, ServiceItem[]> = {
   ],
   MUSIC: [
     { id: "youtube_music", name: "유튜브 뮤직", image: YouTubeMusic },
-    { id: "apple_music", name: "Apple Music", image: AppleMusic },
-    { id: "melon", name: "Melon", image: Melon },
-    { id: "spotify", name: "Spotify", image: Spotify },
-    { id: "genie", name: "Genie", image: Genie },
-    { id: "vibe", name: "VIBE", image: VIBE },
+    { id: "apple_music", name: "애플 뮤직", image: AppleMusic },
+    { id: "melon", name: "멜론", image: Melon },
+    { id: "spotify", name: "스포티파이", image: Spotify },
+    { id: "genie", name: "지니 뮤직", image: Genie },
+    { id: "vibe", name: "바이브", image: VIBE },
   ],
   AI: [
     { id: "chatgpt", name: "ChatGPT", image: ChatGPT },
