@@ -19,7 +19,7 @@ export const useSubscriptionState = ({
       service_name: string;
       price: string;
       start_date: string;
-      billing_cycle: string;
+      billing_cycle: "monthly" | "yearly";
     },
   ) => {
     try {
