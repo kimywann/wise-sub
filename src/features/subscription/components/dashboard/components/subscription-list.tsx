@@ -2,9 +2,9 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import clsx from "clsx";
 
-import EditSubscriptionModal from "@/features/subscriptions/components/modal/edit-subscription-modal";
+import EditSubscriptionModal from "@/features/subscription/components/modal/edit-subscription-modal";
 
-import { useSubscriptionState } from "@/features/subscriptions/components/hooks/useSubscriptionState";
+import { useSubscriptionState } from "@/features/subscription/components/hooks/useSubscriptionState";
 import type { UserSubscription } from "@/common/types/user-subscription-type";
 
 import Button from "@/common/components/button/button";
@@ -105,12 +105,12 @@ export default function SubscriptionList({
             {openEditModal === item.id && (
               <div className="fixed inset-0 z-20 flex items-center justify-center bg-gray-400/30">
                 <EditSubscriptionModal
-                  onClose={handleCloseModal}
                   id={item.id}
                   serviceName={item.service_name}
                   price={item.price}
                   startDate={item.start_date}
                   billingCycle={item.billing_cycle}
+                  onClose={handleCloseModal}
                   onUpdate={(updatedData) =>
                     handleUpdateSubscription(item.id, updatedData)
                   }
