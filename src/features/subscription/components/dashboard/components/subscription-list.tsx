@@ -39,7 +39,7 @@ export default function SubscriptionList({
       service_name: string;
       price: string;
       start_date: string;
-      billing_cycle: string;
+      billing_cycle: "monthly" | "yearly";
     },
   ) => {
     const success = await handleUpdate(id, updatedData);
@@ -112,7 +112,12 @@ export default function SubscriptionList({
                   billingCycle={item.billing_cycle}
                   onClose={handleCloseModal}
                   onUpdate={(updatedData) =>
-                    handleUpdateSubscription(item.id, updatedData)
+                    handleUpdateSubscription(
+                      item.id,
+                      updatedData as Parameters<
+                        typeof handleUpdateSubscription
+                      >[1],
+                    )
                   }
                   onDelete={() => handleDeleteSubscription(item.id)}
                 />
