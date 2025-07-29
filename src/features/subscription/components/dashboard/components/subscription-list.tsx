@@ -12,6 +12,8 @@ import {
   calculateDaysUntilNextPayment,
 } from "@/features/subscription/components/dashboard/hooks/useCostCalculator";
 
+import { SERVICES_LIST } from "@/features/subscription/components/service/constants/service-list";
+
 import type { UserSubscription } from "@/common/types/subscription-type";
 
 interface SubscriptionListProps {
@@ -60,6 +62,18 @@ export default function SubscriptionList({
     }
   };
 
+  // 서비스 이름으로 이미지를 찾는 함수 추가
+  const getServiceImage = (serviceName: string): string => {
+    for (const category of Object.values(SERVICES_LIST)) {
+      const service = category.find((item) => item.name === serviceName);
+      if (service) {
+        return service.image;
+      }
+    }
+    // 커스텀 서비스인 경우 기본 이미지 반환
+    return "";
+  };
+
   return (
     <div>
       <div className="mt-10 mb-6 flex flex-row justify-between">
@@ -93,7 +107,11 @@ export default function SubscriptionList({
                 onClick={() => handleOpenEditModal(item.id)}
                 className="flex cursor-pointer items-center gap-3 rounded-2xl border border-slate-300 p-4 hover:border-indigo-500 hover:shadow-md"
               >
-                <div className="h-10 w-10 rounded-full bg-indigo-600"></div>
+                <img
+                  src={getServiceImage(item.service_name)}
+                  alt={item.service_name}
+                  className="h-10 w-10 rounded-lg bg-indigo-600"
+                />
                 <div className="flex-1">
                   <h3 className="font-semibold text-slate-900">
                     {item.service_name}
