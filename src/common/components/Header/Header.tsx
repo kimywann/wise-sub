@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import type { User } from "@supabase/supabase-js";
 
-import Button from "@/common/components/button/button";
+import Button from "../button/Button";
 import { Link, useNavigate } from "react-router-dom";
 
 function Header() {

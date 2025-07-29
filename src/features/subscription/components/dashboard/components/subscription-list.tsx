@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import clsx from "clsx";
 
-import Button from "@/common/components/button/button";
+import Button from "@/common/components/button/Button";
 
 import EditSubscriptionModal from "@/features/subscription/components/modal/edit-subscription-modal";
 
