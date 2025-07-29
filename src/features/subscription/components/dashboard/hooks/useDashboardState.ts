@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useUser } from "@supabase/auth-helpers-react";
 import getSubscriptions from "../../api/get-subscriptions";
 import type { UserSubscription } from "@/common/types/user-subscription-type";
+import { useSubscriptionFilters } from "./useSubscriptionFilters";
+import { useCostCalculator } from "./useCostCalculator";
 
 export const useDashboardState = () => {
   const [userSubscriptions, setUserSubscriptions] = useState<
@@ -12,6 +14,10 @@ export const useDashboardState = () => {
   const [error, setError] = useState<string | null>(null);
 
   const user = useUser();
+
+  // 분리된 훅들 사용
+  const { getActiveSubscriptions } = useSubscriptionFilters(userSubscriptions);
+  const { calculateMonthlyCost } = useCostCalculator();
 
   useEffect(() => {
     if (!user) return;
@@ -34,31 +40,9 @@ export const useDashboardState = () => {
     fetchData();
   }, [user]);
 
-  // 선택된 월에 활성화된 구독 필터링
-  const getActiveSubscriptions = (date: Date): UserSubscription[] => {
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-
-    return userSubscriptions.filter((subscription) => {
-      const startDate = new Date(subscription.start_date);
-      const startYear = startDate.getFullYear();
-      const startMonth = startDate.getMonth() + 1;
-
-      // 구독 시작일이 선택된 월보다 이전이거나 같은 경우에만 활성화
-      if (startYear < year) return true;
-      if (startYear === year && startMonth <= month) return true;
-
-      return false;
-    });
-  };
-
+  // 계산된 값들
   const activeSubscriptions = getActiveSubscriptions(selectedDate);
-
-  const monthlyCost = activeSubscriptions.reduce(
-    (acc, current) => acc + Number(current.price),
-    0,
-  );
-
+  const monthlyCost = calculateMonthlyCost(activeSubscriptions, selectedDate);
   const subscriptionCount = activeSubscriptions.length;
 
   return {
