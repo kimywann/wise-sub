@@ -96,7 +96,7 @@ function EditSubscriptionModal({
   };
 
   return (
-    <div className="mx-auto mb-10 h-[550px] w-[400px] rounded-xl border border-slate-300 bg-white p-8 shadow-md">
+    <div className="mx-auto mb-10 h-[565px] w-[400px] rounded-xl border border-slate-300 bg-white p-8 shadow-md">
       <header className="flex flex-row justify-between">
         <div></div>
         <button
