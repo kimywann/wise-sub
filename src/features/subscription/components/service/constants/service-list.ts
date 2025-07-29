@@ -10,7 +10,7 @@ import AppleMusic from "@/assets/logo/music/AppleMusic.jpeg";
 import Melon from "@/assets/logo/music/Melon.png";
 import Spotify from "@/assets/logo/music/Spotify.png";
 import Genie from "@/assets/logo/music/Genie.png";
-import VIBE from "@/assets/logo/music/VIBE.jpeg";
+import VIBE from "@/assets/logo/music/Vibe.jpeg";
 
 import ChatGPT from "@/assets/logo/ai/ChatGPT.png";
 import Gemini from "@/assets/logo/ai/Gemini.png";
