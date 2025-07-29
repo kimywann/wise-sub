@@ -63,4 +63,21 @@ export const calculateNextPaymentDate = (
   return nextPayment.toISOString().split("T")[0];
 };
 
-// export const nextPaymentInDays = 0;
+export const calculateDaysUntilNextPayment = (
+  startDate: string,
+  billingCycle: "monthly" | "yearly",
+): number => {
+  const nextPaymentDate = calculateNextPaymentDate(startDate, billingCycle);
+  const nextPayment = new Date(nextPaymentDate);
+  const today = new Date();
+
+  // 시간을 00:00:00으로 설정하여 일수만 계산
+  today.setHours(0, 0, 0, 0);
+  nextPayment.setHours(0, 0, 0, 0);
+
+  // 밀리초 차이를 일수로 변환하고 1을 빼서 정확한 남은 일수 계산
+  const timeDiff = nextPayment.getTime() - today.getTime();
+  const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24)) - 1;
+
+  return daysDiff;
+};

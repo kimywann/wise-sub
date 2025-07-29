@@ -2,13 +2,17 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import clsx from "clsx";
 
+import Button from "@/common/components/button/button";
+
 import EditSubscriptionModal from "@/features/subscription/components/modal/edit-subscription-modal";
 
 import { useSubscriptionState } from "@/features/subscription/components/hooks/useSubscriptionState";
-import { calculateNextPaymentDate } from "@/features/subscription/components/dashboard/hooks/useCostCalculator";
-import type { UserSubscription } from "@/common/types/subscription-type";
+import {
+  calculateNextPaymentDate,
+  calculateDaysUntilNextPayment,
+} from "@/features/subscription/components/dashboard/hooks/useCostCalculator";
 
-import Button from "@/common/components/button/button";
+import type { UserSubscription } from "@/common/types/subscription-type";
 
 interface SubscriptionListProps {
   subscriptions: UserSubscription[];
@@ -91,17 +95,29 @@ export default function SubscriptionList({
               >
                 <div className="h-10 w-10 rounded-full bg-indigo-600"></div>
                 <div className="flex-1">
-                  <h3 className="font-medium text-slate-900">
+                  <h3 className="font-semibold text-slate-900">
                     {item.service_name}
                   </h3>
-                  <p className="text-sm text-slate-600">
+                  <p className="mt-1.5 text-sm text-slate-600">
                     다음 결제일:{" "}
-                    {calculateNextPaymentDate(
-                      item.start_date,
-                      item.billing_cycle,
-                    )}
+                    <span className="font-bold">
+                      {calculateNextPaymentDate(
+                        item.start_date,
+                        item.billing_cycle,
+                      )}
+                    </span>
                   </p>
-                  <div className="flex flex-row gap-2">
+                  <p className="mt-1.5 text-sm text-slate-600">
+                    다음 결제일 까지:{" "}
+                    <span className="font-bold">
+                      {calculateDaysUntilNextPayment(
+                        item.start_date,
+                        item.billing_cycle,
+                      )}
+                    </span>
+                    일 남았습니다
+                  </p>
+                  <div className="mt-2 flex flex-row gap-2">
                     <p
                       className={clsx(
                         "text-sm",
@@ -123,6 +139,7 @@ export default function SubscriptionList({
                 <div className="fixed inset-0 z-20 flex items-center justify-center bg-gray-400/30">
                   <EditSubscriptionModal
                     id={item.id}
+                    userId={item.user_id}
                     serviceName={item.service_name}
                     price={item.price}
                     startDate={item.start_date}
