@@ -5,6 +5,7 @@ import clsx from "clsx";
 import EditSubscriptionModal from "@/features/subscription/components/modal/edit-subscription-modal";
 
 import { useSubscriptionState } from "@/features/subscription/components/hooks/useSubscriptionState";
+import { calculateNextPaymentDate } from "@/features/subscription/components/dashboard/hooks/useCostCalculator";
 import type { UserSubscription } from "@/common/types/user-subscription-type";
 
 import Button from "@/common/components/button/button";
@@ -72,60 +73,77 @@ export default function SubscriptionList({
         </div>
       </div>
 
-      <div className="flex flex-col gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {subscriptions.map((item) => (
-          <div key={item.id}>
-            <div
-              onClick={() => handleOpenEditModal(item.id)}
-              className="flex cursor-pointer items-center gap-3 rounded-2xl border border-slate-300 p-4 hover:border-indigo-500 hover:shadow-md"
-            >
-              <div className="h-10 w-10 rounded-full bg-indigo-600"></div>
-              <div className="flex-1">
-                <h3 className="font-medium text-slate-900">
-                  {item.service_name}
-                </h3>
-                <div className="flex flex-row gap-2">
-                  <p
-                    className={clsx(
-                      "text-sm",
-                      item.billing_cycle === "monthly"
-                        ? "rounded-md bg-blue-100 px-1 font-medium text-blue-600"
-                        : "rounded-md bg-orange-100 px-1 font-medium text-orange-600",
-                    )}
-                  >
-                    {item.billing_cycle === "monthly" ? "월간" : "연간"}
-                  </p>
+      {subscriptions.length === 0 ? (
+        <div className="flex h-64 items-center justify-center">
+          <div className="text-center text-lg text-slate-500">
+            아직 등록된 구독이 없어요.
+            <br />
+            구독 서비스를 추가해서 시작해보세요!
+          </div>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {subscriptions.map((item) => (
+            <div key={item.id}>
+              <div
+                onClick={() => handleOpenEditModal(item.id)}
+                className="flex cursor-pointer items-center gap-3 rounded-2xl border border-slate-300 p-4 hover:border-indigo-500 hover:shadow-md"
+              >
+                <div className="h-10 w-10 rounded-full bg-indigo-600"></div>
+                <div className="flex-1">
+                  <h3 className="font-medium text-slate-900">
+                    {item.service_name}
+                  </h3>
                   <p className="text-sm text-slate-600">
-                    {Number(item.price).toLocaleString()}원
+                    다음 결제일:{" "}
+                    {calculateNextPaymentDate(
+                      item.start_date,
+                      item.billing_cycle,
+                    )}
                   </p>
+                  <div className="flex flex-row gap-2">
+                    <p
+                      className={clsx(
+                        "text-sm",
+                        item.billing_cycle === "monthly"
+                          ? "rounded-md bg-blue-100 px-1 font-medium text-blue-600"
+                          : "rounded-md bg-orange-100 px-1 font-medium text-orange-600",
+                      )}
+                    >
+                      {item.billing_cycle === "monthly" ? "월간" : "연간"}
+                    </p>
+                    <p className="text-sm text-slate-600">
+                      {Number(item.price).toLocaleString()}원
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {openEditModal === item.id && (
-              <div className="fixed inset-0 z-20 flex items-center justify-center bg-gray-400/30">
-                <EditSubscriptionModal
-                  id={item.id}
-                  serviceName={item.service_name}
-                  price={item.price}
-                  startDate={item.start_date}
-                  billingCycle={item.billing_cycle}
-                  onClose={handleCloseModal}
-                  onUpdate={(updatedData) =>
-                    handleUpdateSubscription(
-                      item.id,
-                      updatedData as Parameters<
-                        typeof handleUpdateSubscription
-                      >[1],
-                    )
-                  }
-                  onDelete={() => handleDeleteSubscription(item.id)}
-                />
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
+              {openEditModal === item.id && (
+                <div className="fixed inset-0 z-20 flex items-center justify-center bg-gray-400/30">
+                  <EditSubscriptionModal
+                    id={item.id}
+                    serviceName={item.service_name}
+                    price={item.price}
+                    startDate={item.start_date}
+                    billingCycle={item.billing_cycle}
+                    onClose={handleCloseModal}
+                    onUpdate={(updatedData) =>
+                      handleUpdateSubscription(
+                        item.id,
+                        updatedData as Parameters<
+                          typeof handleUpdateSubscription
+                        >[1],
+                      )
+                    }
+                    onDelete={() => handleDeleteSubscription(item.id)}
+                  />
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
