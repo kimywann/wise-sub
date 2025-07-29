@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 import updateSubscription from "../api/update-subscription";
 import deleteSubscription from "../api/delete-subscription";
@@ -37,6 +37,26 @@ function EditSubscriptionModal({
   const [editedServicePrice, setEditedServicePrice] = useState(price);
   const [editedStartDate, setEditedStartDate] = useState(startDate);
   const [editedBillingCycle, setEditedBillingCycle] = useState(billingCycle);
+
+  // ESC 키 이벤트 핸들러
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        onClose();
+      }
+    },
+    [onClose],
+  );
+
+  // 컴포넌트 마운트 시 키보드 이벤트 리스너 추가
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyDown);
+
+    // 컴포넌트 언마운트 시 이벤트 리스너 제거
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [handleKeyDown]);
 
   const handleUpdateSubscription = async () => {
     try {
