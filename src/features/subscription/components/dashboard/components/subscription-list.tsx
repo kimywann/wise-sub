@@ -71,6 +71,7 @@ export default function SubscriptionList({
       }
     }
     // 커스텀 서비스인 경우 기본 이미지 반환
+    if (serviceName === "커스텀") return "";
     return "";
   };
 
@@ -107,11 +108,19 @@ export default function SubscriptionList({
                 onClick={() => handleOpenEditModal(item.id)}
                 className="flex cursor-pointer items-center gap-3 rounded-2xl border border-slate-300 p-4 hover:border-indigo-500 hover:shadow-md"
               >
-                <img
-                  src={getServiceImage(item.service_name)}
-                  alt={item.service_name}
-                  className="h-10 w-10 rounded-lg bg-indigo-600"
-                />
+                {getServiceImage(item.service_name) ? (
+                  <img
+                    src={getServiceImage(item.service_name)}
+                    alt={item.service_name}
+                    className="h-10 w-10 rounded-lg object-cover"
+                  />
+                ) : (
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
+                    <span className="text-xs font-bold text-white">
+                      {item.service_name.charAt(0)}
+                    </span>
+                  </div>
+                )}
                 <div className="flex-1">
                   <h3 className="font-semibold text-slate-900">
                     {item.service_name}
