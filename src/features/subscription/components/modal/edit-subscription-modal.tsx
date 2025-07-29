@@ -5,22 +5,24 @@ import deleteSubscription from "../api/delete-subscription";
 
 interface EditSubscriptionModalProps {
   id: number;
+  userId: string;
   serviceName: string;
   price: string;
   startDate: string;
-  billingCycle: string;
+  billingCycle: "monthly" | "yearly";
   onClose: () => void;
   onDelete: () => void;
   onUpdate: (updatedData: {
     service_name: string;
     price: string;
     start_date: string;
-    billing_cycle: string;
+    billing_cycle: "monthly" | "yearly";
   }) => void;
 }
 
 function EditSubscriptionModal({
   id,
+  userId,
   serviceName,
   price,
   startDate,
@@ -36,14 +38,18 @@ function EditSubscriptionModal({
 
   const handleUpdateSubscription = async () => {
     try {
+      // UserSubscription 객체로 변환
+      const updatedSubscription = {
+        id: id,
+        user_id: userId,
+        service_name: editedServiceName,
+        price: editedServicePrice,
+        start_date: editedStartDate,
+        billing_cycle: editedBillingCycle,
+      };
+
       // 서버 업데이트
-      await updateSubscription(
-        id,
-        editedServiceName,
-        editedServicePrice,
-        editedStartDate,
-        editedBillingCycle,
-      );
+      await updateSubscription(updatedSubscription);
 
       // 부모 컴포넌트에 업데이트된 데이터 전달
       onUpdate({
@@ -116,7 +122,9 @@ function EditSubscriptionModal({
       <div className="mb-6 flex flex-col rounded-lg border border-slate-300 p-4 shadow-sm">
         <select
           value={editedBillingCycle}
-          onChange={(e) => setEditedBillingCycle(e.target.value)}
+          onChange={(e) =>
+            setEditedBillingCycle(e.target.value as "monthly" | "yearly")
+          }
         >
           <option value="monthly">월간</option>
           <option value="yearly">연간</option>
