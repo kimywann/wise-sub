@@ -1,23 +1,25 @@
 import updateSubscription from "@/features/subscription/components/api/update-subscription";
 import deleteSubscription from "@/features/subscription/components/api/delete-subscription";
+import type { UserSubscription } from "@/common/types/subscription-type";
 
 export const useSubscriptionApi = () => {
   const handleUpdateSubscription = async (
     id: number,
+    user_id: string,
     updatedData: {
       service_name: string;
       price: string;
       start_date: string;
-      billing_cycle: string;
+      billing_cycle: "monthly" | "yearly";
     },
   ) => {
-    await updateSubscription(
+    const userSubscription: UserSubscription = {
       id,
-      updatedData.service_name,
-      updatedData.price,
-      updatedData.start_date,
-      updatedData.billing_cycle,
-    );
+      user_id,
+      ...updatedData,
+    };
+
+    await updateSubscription(userSubscription);
   };
 
   const handleDeleteSubscription = async (id: number) => {

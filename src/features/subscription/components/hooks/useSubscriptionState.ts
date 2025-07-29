@@ -21,9 +21,10 @@ export const useSubscriptionState = ({
       start_date: string;
       billing_cycle: "monthly" | "yearly";
     },
+    user_id: string,
   ) => {
     try {
-      await handleUpdateSubscription(id, updatedData);
+      await handleUpdateSubscription(id, user_id, updatedData);
 
       // 로컬 상태 업데이트
       const updatedSubscriptions = subscriptions.map((sub) =>

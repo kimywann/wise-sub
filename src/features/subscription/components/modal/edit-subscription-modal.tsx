@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 
-import updateSubscription from "../api/update-subscription";
-import deleteSubscription from "../api/delete-subscription";
+import { useSubscriptionApi } from "@/features/subscription/components/hooks/useSubscriptionApi";
 
 import close from "@/assets/icon/x.svg";
 
@@ -38,6 +37,9 @@ function EditSubscriptionModal({
   const [editedStartDate, setEditedStartDate] = useState(startDate);
   const [editedBillingCycle, setEditedBillingCycle] = useState(billingCycle);
 
+  const { handleUpdateSubscription, handleDeleteSubscription } =
+    useSubscriptionApi();
+
   // ESC 키 이벤트 핸들러
   const handleKeyDown = useCallback(
     (event: KeyboardEvent) => {
@@ -58,20 +60,14 @@ function EditSubscriptionModal({
     };
   }, [handleKeyDown]);
 
-  const handleUpdateSubscription = async () => {
+  const handleUpdate = async () => {
     try {
-      // UserSubscription 객체로 변환
-      const updatedSubscription = {
-        id: id,
-        user_id: userId,
+      await handleUpdateSubscription(id, userId, {
         service_name: editedServiceName,
         price: editedServicePrice,
         start_date: editedStartDate,
         billing_cycle: editedBillingCycle,
-      };
-
-      // 서버 업데이트
-      await updateSubscription(updatedSubscription);
+      });
 
       // 부모 컴포넌트에 업데이트된 데이터 전달
       onUpdate({
@@ -85,9 +81,9 @@ function EditSubscriptionModal({
     }
   };
 
-  const handleDeleteSubscription = async () => {
+  const handleDelete = async () => {
     try {
-      await deleteSubscription(id);
+      await handleDeleteSubscription(id);
       onDelete();
       onClose();
     } catch (error) {
@@ -157,14 +153,14 @@ function EditSubscriptionModal({
       <div className="mt-3 flex flex-row justify-center gap-16">
         <button
           type="button"
-          onClick={handleDeleteSubscription}
+          onClick={handleDelete}
           className="rounded-2xl px-4 py-2 text-lg font-bold text-red-500 hover:cursor-pointer hover:rounded-xl hover:bg-red-100"
         >
           삭제
         </button>
         <button
           type="button"
-          onClick={handleUpdateSubscription}
+          onClick={handleUpdate}
           className="rounded-2xl px-4 py-2 text-lg font-bold text-blue-500 hover:cursor-pointer hover:rounded-xl hover:bg-blue-100"
         >
           저장
