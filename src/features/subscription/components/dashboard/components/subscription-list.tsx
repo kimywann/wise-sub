@@ -6,7 +6,7 @@ import EditSubscriptionModal from "@/features/subscription/components/modal/edit
 
 import { useSubscriptionState } from "@/features/subscription/components/hooks/useSubscriptionState";
 import { calculateNextPaymentDate } from "@/features/subscription/components/dashboard/hooks/useCostCalculator";
-import type { UserSubscription } from "@/common/types/user-subscription-type";
+import type { UserSubscription } from "@/common/types/subscription-type";
 
 import Button from "@/common/components/button/button";
 
