@@ -31,8 +31,13 @@ export default function ServiceBox() {
     fetchExistingSubscriptions();
   }, [user]);
 
-  // 서비스가 이미 구독되어 있는지 확인
+  // 서비스가 이미 구독되어 있는지 확인 (직접입력은 제외)
   const isServiceAlreadySubscribed = (serviceName: string) => {
+    // 직접입력은 중복 체크하지 않음
+    if (serviceName === "직접입력") {
+      return false;
+    }
+
     return existingSubscriptions.some(
       (subscription) => subscription.service_name === serviceName,
     );

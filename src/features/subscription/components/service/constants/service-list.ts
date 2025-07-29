@@ -58,5 +58,6 @@ export const SERVICES_LIST: Record<ServiceCategory, ServiceItem[]> = {
   ETC: [
     { id: "baemin_club", name: "배민클럽", image: BaeminClub },
     { id: "rocket_wow", name: "로켓와우", image: RocketWow },
+    { id: "custom", name: "직접입력", image: "" },
   ],
 };
