@@ -3,6 +3,8 @@ import { useState } from "react";
 import updateSubscription from "../api/update-subscription";
 import deleteSubscription from "../api/delete-subscription";
 
+import close from "@/assets/icon/x.svg";
+
 interface EditSubscriptionModalProps {
   id: number;
   userId: string;
@@ -76,13 +78,13 @@ function EditSubscriptionModal({
   return (
     <div className="mx-auto mb-10 h-[550px] w-[400px] rounded-xl border border-slate-300 bg-white p-8 shadow-md">
       <header className="flex flex-row justify-between">
-        <div className="mb-5 text-2xl font-bold text-indigo-600"></div>
+        <div></div>
         <button
           type="button"
           onClick={onClose}
-          className="mb-4 text-lg font-bold text-red-500 hover:cursor-pointer"
+          className="mb-4 hover:cursor-pointer"
         >
-          X
+          <img src={close} alt="left" className="h-6 w-6" />
         </button>
       </header>
 
