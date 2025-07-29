@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import type { User } from "@supabase/supabase-js";
 
-import Button from "../button/Button";
+import Button from "./Button";
 import { Link, useNavigate } from "react-router-dom";
 
 function Header() {
@@ -23,7 +23,7 @@ function Header() {
     // 인증 상태 변경 리스너 설정
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange(async (event, session) => {
+    } = supabase.auth.onAuthStateChange(async (_event, session) => {
       setUser(session?.user ?? null);
     });
 

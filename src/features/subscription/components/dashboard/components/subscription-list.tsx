@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import clsx from "clsx";
 
-import Button from "@/common/components/button/Button";
+import Button from "@/common/components/Button";
 
 import EditSubscriptionModal from "@/features/subscription/components/modal/edit-subscription-modal";
 
@@ -48,8 +48,9 @@ export default function SubscriptionList({
       start_date: string;
       billing_cycle: "monthly" | "yearly";
     },
+    user_id: string,
   ) => {
-    const success = await handleUpdate(id, updatedData);
+    const success = await handleUpdate(id, updatedData, user_id);
     if (success) {
       setOpenEditModal(null);
     }
@@ -178,6 +179,7 @@ export default function SubscriptionList({
                         updatedData as Parameters<
                           typeof handleUpdateSubscription
                         >[1],
+                        item.user_id,
                       )
                     }
                     onDelete={() => handleDeleteSubscription(item.id)}

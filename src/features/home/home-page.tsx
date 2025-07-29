@@ -1,4 +1,4 @@
-import Button from "@/common/components/button/Button";
+import Button from "@/common/components/Button";
 import { Link, Navigate } from "react-router-dom";
 import { useUser } from "@supabase/auth-helpers-react";
 

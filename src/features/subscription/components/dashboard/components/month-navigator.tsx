@@ -18,7 +18,7 @@ const MonthNavigator = ({
         <button
           type="button"
           onClick={goToPreviousMonth}
-          className="flex h-8 w-8 items-center justify-center rounded-full border border-slate-300 text-slate-600 hover:bg-slate-100"
+          className="flex h-8 w-8 items-center justify-center rounded-full border border-slate-300 text-slate-600 hover:cursor-pointer hover:bg-slate-100"
         >
           ←
         </button>
@@ -33,7 +33,7 @@ const MonthNavigator = ({
           <button
             type="button"
             onClick={goToNextMonth}
-            className="flex h-8 w-8 items-center justify-center rounded-full border border-slate-300 text-slate-600 hover:bg-slate-100"
+            className="flex h-8 w-8 items-center justify-center rounded-full border border-slate-300 text-slate-600 hover:cursor-pointer hover:bg-slate-100"
           >
             →
           </button>
