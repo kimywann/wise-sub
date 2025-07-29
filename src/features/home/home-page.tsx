@@ -1,7 +1,14 @@
 import Button from "@/common/components/button/button";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import { useUser } from "@supabase/auth-helpers-react";
 
 function HomePage() {
+  const user = useUser();
+
+  if (user) {
+    return <Navigate to="/subscription" replace />;
+  }
+
   return (
     <>
       <section className="h-screen w-full bg-[linear-gradient(180deg,transparent_50%,rgba(0,100,255,.1))]">
