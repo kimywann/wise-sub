@@ -1,69 +1,37 @@
-# React + TypeScript + Vite
+# WiseSub - 구독 관리 웹 서비스
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<div align="center">
+  <img src="public/logo.svg" alt="WiseSub Logo" width="100"/>
+</div>
 
-Currently, two official plugins are available:
+## 📋 프로젝트 소개
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+WiseSub는 사용자들이 다양한 구독 서비스의 결제일과 비용을 한눈에 관리할 수 있는 웹 서비스입니다. 다양한 구독 서비스를 등록하고 관리하면 월별 총 지출을 한눈에 파악하고, 결제일을 놓치지 않아 더욱 스마트한 구독 라이프를 즐길 수 있습니다.
 
-## Expanding the ESLint configuration
+### ✨ 주요 기능
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **📊 대시보드**: 월별 구독 비용 및 결제일 시각화
+- **📅 월별 관리**: 월별 구독 서비스 목록 및 비용 추적
+- **📱 반응형 디자인**: 모바일과 데스크톱에서 최적화된 사용자 경험
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 🎯 해결하는 문제
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+- 여러 구독 서비스의 결제일을 놓치는 문제
+- 월별 구독 비용을 정확히 파악하지 못하는 문제
+- 결제 후에야 어떤 구독 서비스를 사용했는지 깨닫는 문제
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 기술 스택
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- **Frontend**
+  - React
+  - TypeScript
+  - Tailwind CSS
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- **Backend**
+  - Supabase
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- **Development Tools**
+  - Vite
+  - Git
+  - GitHub
+  - Vercel (배포)
